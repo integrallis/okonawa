@@ -9,4 +9,8 @@ class Todo
           :done     => {:type => :boolean, :default => false, :formotion => {:type => :switch}}
           
   validates :name, :presence => true
+  
+  def overdue?
+    NSDate.new > self.due_date && !done
+  end
 end
