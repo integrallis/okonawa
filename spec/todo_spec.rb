@@ -19,4 +19,8 @@ describe "Todo Model" do
     @todo.name = nil
     @todo.should.not.be.valid
   end
+  
+  it "is not done by default" do
+    @todo.done.should.not.be.true
+  end
 end
