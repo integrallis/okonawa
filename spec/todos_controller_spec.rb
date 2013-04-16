@@ -8,4 +8,8 @@ describe "Todos Controller" do
   it 'should exist' do
     @table.should.not == nil
   end
+  
+  it 'displays the given ToDos' do
+    @table.visibleCells.should.not.be.empty
+  end
 end
