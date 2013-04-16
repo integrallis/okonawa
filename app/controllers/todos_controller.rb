@@ -24,4 +24,11 @@ class TodosController < UIViewController
     cell
   end
   
+  def tableView(tableView, didSelectRowAtIndexPath:indexPath)
+    tableView.deselectRowAtIndexPath(indexPath, animated:true)
+    todo = @todos[indexPath.row]
+    todo_controller = TodoController.new(todo)
+    self.navigationController.pushViewController(todo_controller, animated: true)
+  end
+  
 end

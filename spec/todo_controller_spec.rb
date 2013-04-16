@@ -1,6 +1,14 @@
 describe "Todo Controller" do
   tests TodoController
   
+  before do
+    @form = @controller.instance_variable_get("@form")
+    @name_row = @form.sections[0].rows[0]
+    @details_row = @form.sections[0].rows[1]
+    @due_date_row = @form.sections[0].rows[2]
+    @done_row = @form.sections[0].rows[3]
+  end
+  
   def controller
     unless @controller
       @now = NSDate.new
