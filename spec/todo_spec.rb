@@ -15,4 +15,8 @@ describe "Todo Model" do
     @todo.should.respond_to :done
   end
 
+  it "is invalid without a name" do
+    @todo.name = nil
+    @todo.should.not.be.valid
+  end
 end
