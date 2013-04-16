@@ -11,6 +11,10 @@ class TodosController < UIViewController
     @table.delegate = self
     
     @todos = Todo.all
+    
+    NSNotificationCenter.defaultCenter.addObserver(self, selector: 'todoChanged:',
+                                                         name: 'MotionModelDataDidChangeNotification',
+                                                         object: nil) unless RUBYMOTION_ENV == 'test'
   end
  
 
@@ -29,6 +33,18 @@ class TodosController < UIViewController
     todo = @todos[indexPath.row]
     todo_controller = TodoController.new(todo)
     self.navigationController.pushViewController(todo_controller, animated: true)
+  end
+  
+  def todoChanged(notification)
+    case notification.userInfo[:action]
+      when 'add'
+      when 'update'
+        todo = notification.object
+        row = todo.id - 1
+        path = NSIndexPath.indexPathForRow(row, inSection:0)
+        @table.reloadRowsAtIndexPaths([path], withRowAnimation:UITableViewRowAnimationAutomatic)
+      when 'delete'  
+    end
   end
   
 end
