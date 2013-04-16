@@ -32,4 +32,13 @@ describe "Todo Controller" do
     @done_row.value.should.equal false
   end
   
+  it "saves changes made to a todo" do
+    @name_row.object.row.text_field.text = "Buy 1% Milk"
+    controller.save
+    
+    saved_todo = Todo.find(@todo.id)
+    
+    saved_todo.name.should.equal "Buy 1% Milk"
+  end
+  
 end
