@@ -4,6 +4,7 @@ require 'motion/project'
 require 'motion_model'
 require 'guard/motion'
 require 'formotion'
+require 'sugarcube-repl'
 require 'bundler'
 Bundler.require
 

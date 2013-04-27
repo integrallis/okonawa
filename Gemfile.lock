@@ -32,6 +32,7 @@ GEM
     rake (10.0.4)
     rb-fsevent (0.9.3)
     slop (3.4.4)
+    sugarcube (0.20.16)
     thor (0.18.1)
 
 PLATFORMS
@@ -42,3 +43,4 @@ DEPENDENCIES
   guard-motion
   motion_model
   rb-fsevent
+  sugarcube

@@ -21,4 +21,10 @@ describe "Todos Controller" do
     first_cell = @table.visibleCells.first
     first_cell.textLabel.text.should == 'Buy Milk'
   end
+  
+  it 'creates a new row for a new todo' do
+    controller.add_todo
+    last_cell = @table.visibleCells.last
+    last_cell.textLabel.text.should == 'New Todo'
+  end
 end

@@ -1,0 +1,95 @@
+---
+slides:
+- slide:
+    commit: ee12f75704a781c8bfaa4276bb2d92087e04fd54
+    message: Initial Commit
+- slide:
+    commit: c545171fe0e383d8993e3726dd0c5a2df89f9177
+    message: Pass - Application 'Okonawa' - has one window
+- slide:
+    commit: 614cdef61237d543169b6e8c2d80ae20d382ad68
+    message: ! 'Failing test: Todos Controller - should exist'
+- slide:
+    commit: c5950c399414a2a86e383f63c06730b894fa67bf
+    message: ! 'Passing test: Todos Controller - should exist'
+- slide:
+    commit: a2308f42e5124498c7f8f5e80f28068af9dc7cf9
+    message: ! 'Failing test: Todos Controller - displays the given ToDos'
+- slide:
+    commit: 9a58c6a3f28aaeb7da7452368063631f16e11b15
+    message: ! 'Passing test: Todos Controller - displays the given ToDos'
+- slide:
+    commit: efaa700446cd3451f2f1fb71fd2722f4df79c665
+    message: ! 'Refactor: Apply MVC, use a View Controller'
+- slide:
+    commit: 5cf01f5dae5c906a0848385362298eda5a5af698
+    message: Added Gemfile and .rvmrc
+- slide:
+    commit: abbb489024e13ca8baa6e2df7189d2731480fa5d
+    message: Add require statements to Rakefile
+- slide:
+    commit: a1f237ad35864a8d9455961f46ecd5ba20f35d8f
+    message: Add Guardfile
+- slide:
+    commit: 0f896b8cea65c4d61e6885686cd225fd2d713b40
+    message: ! 'Passing test: Todos Controller - displays the correct label for a
+      give ToDo'
+- slide:
+    commit: 66f17add2659211b9b3962ddfa6f81394a0ef599
+    message: ! 'Failing test: Todo Model - exists'
+- slide:
+    commit: 5ddaf05206ea331f22cfabf82173497ea4abaa55
+    message: ! 'Passing test: Todo Model - exists'
+- slide:
+    commit: 908bd3d29cca7f45365de362c486e75a29817f55
+    message: ! 'Failing test: Todo Model - has a name, description, a due date and
+      whether is done or not'
+- slide:
+    commit: 2c76d9e07a89d1cecaef3014e5b786c2fa0ab29d
+    message: ! 'Passing test: Todo Model - has a name, description, a due date and
+      whether is done or not'
+- slide:
+    commit: 94104f316eb2f41edeb55025d437351f9e8c6273
+    message: ! 'Failing test: Todo Model - is invalid without a name'
+- slide:
+    commit: bd049211dadf9dcb3914cad26a4d614022e22d56
+    message: ! 'Passing test: Todo Model - is invalid without a name'
+- slide:
+    commit: 60b9dbb3b6c8a3c1ee7e2754cbce9f6bd4579e69
+    message: ! 'Passing test: Todo Model - is not done by default'
+- slide:
+    commit: 29ea8f5efb9dac6741eaf6fcf99201cfcb25648a
+    message: ! 'Failing test: Todo Model - knows if its overdue'
+- slide:
+    commit: 07d69c72f4b7bc8c3719b47d145c8ffb71ca3373
+    message: ! 'Passing test: Todo Model - knows if its overdue'
+- slide:
+    commit: 49b2fb74e732baf40bdc3474f5f912454a8ae18e
+    message: Refactor +TodosController+ controller to use Todo Model, seed the application
+      and tests with Todo models
+- slide:
+    commit: 3fdb80be7fc75eece7c34c97475084c4d15bc54a
+    message: ! 'Failing test: Todo Controller - exists'
+- slide:
+    commit: 4eccb5a9b1ded203123d3c04af644a4445e42d43
+    message: ! 'Passing test: Todo Controller - exists'
+- slide:
+    commit: 79de6d2e303a5ca9be8c68270ef2a7119004f77f
+    message: Implemented Todo controller as a Formotion::FormController, Enhanced
+      Todo Model w/ Formotion, overrode controller method in spec to return a properly
+      init controller
+- slide:
+    commit: 4897095cb70baa40adf865d1148f66bcacebe3ca
+    message: ! 'Failing test: Todo Controller - displays a Todo''s details'
+- slide:
+    commit: ca70f3f8404304f5768102be303d6157dc143f48
+    message: ! 'Passing test: Todo Controller - displays a Todo''s details'
+- slide:
+    commit: 276ff54528ee36c254fe12e696a3a59f300e0e40
+    message: ! 'Failing test: Todo Controller - saves changes made to a todo'
+- slide:
+    commit: 3ea974135054abf2611e044d5ff373f32342b51d
+    message: ! 'Passing test: Todo Controller - saves changes made to a todo'
+- slide:
+    commit: 07555e4efbcb1a410958cedb800bab8485cc0d3b
+    message: Update table view when the todo changes using notifications
