@@ -26,10 +26,12 @@ class TodosController < UITableViewController
     cell
   end
   
+  def tableView(tableView, accessoryButtonTappedForRowWithIndexPath:indexPath)
+    select_row(tableView, indexPath)
+  end
+  
   def tableView(tableView, didSelectRowAtIndexPath:indexPath)
-    tableView.deselectRowAtIndexPath(indexPath, animated:true)
-    todo = @todos[indexPath.row]
-    edit_todo(todo)
+    select_row(tableView, indexPath)
   end
   
   def todoChanged(notification)
@@ -59,6 +61,12 @@ class TodosController < UITableViewController
     @todos = Todo.all
     self.tableView.insertRowsAtIndexPaths([path], withRowAnimation:UITableViewRowAnimationRight)
     edit_todo(todo) unless RUBYMOTION_ENV == 'test' 
+  end
+  
+  def select_row(tableView, indexPath)
+    tableView.deselectRowAtIndexPath(indexPath, animated:true)
+    todo = @todos[indexPath.row]
+    edit_todo(todo)
   end
   
   def edit_todo(todo)
