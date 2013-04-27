@@ -4,17 +4,20 @@ class TodosController < UITableViewController
     super
     self.title = "My ToDos"
     
-    @todos = Todo.all
+    load_todos
     
     add_todo_button = UIBarButtonItem.alloc.initWithBarButtonSystemItem(UIBarButtonSystemItemAdd, target:self, action:'add_todo')
     self.navigationItem.rightBarButtonItem = add_todo_button                                                                                  
     
-    NSNotificationCenter.defaultCenter.addObserver(self, selector: 'todoChanged:',
+    NSNotificationCenter.defaultCenter.addObserver(self, selector: 'todo_changed:',
                                                          name: 'MotionModelDataDidChangeNotification',
                                                          object: nil) unless RUBYMOTION_ENV == 'test'
   end
  
-
+  #
+  # tableView implementation
+  #
+  
   def tableView(tableView, numberOfRowsInSection: section)
     @todos.size
   end
@@ -34,17 +37,42 @@ class TodosController < UITableViewController
     select_row(tableView, indexPath)
   end
   
-  def todoChanged(notification)
+  def tableView(tableView, editingStyleForRowAtIndexPath:indexPath)
+    UITableViewCellEditingStyleDelete
+  end
+  
+  def tableView(tableView, commitEditingStyle:editingStyle, forRowAtIndexPath:indexPath)
+    if editingStyle == UITableViewCellEditingStyleDelete
+      load_todos
+      @todos[indexPath.row].destroy
+    end
+  end
+  
+  #
+  #
+  #
+  
+  def load_todos
+    @todos = Todo.all
+  end
+  
+  def todo_changed(notification)
     todo = notification.object
-    row = todo.id - 1
-    path = NSIndexPath.indexPathForRow(row, inSection:0)
+    
+    if notification.userInfo[:action] != 'delete'
+      row = @todos.index(todo) - 1
+      path = NSIndexPath.indexPathForRow(row, inSection:0)
+    end
+    
+    load_todos
     
     case notification.userInfo[:action]
       when 'add'
         add_todo_row(todo)
       when 'update'
         self.tableView.reloadRowsAtIndexPaths([path], withRowAnimation:UITableViewRowAnimationAutomatic)
-      when 'delete'  
+      when 'delete'
+        self.tableView.reloadData 
     end
   end
   
@@ -56,9 +84,10 @@ class TodosController < UITableViewController
   end
   
   def add_todo_row(todo)
-    row = todo.id - 1
+    load_todos if RUBYMOTION_ENV == 'test'
+    row = @todos.size - 1
     path = NSIndexPath.indexPathForRow(row, inSection:0)
-    @todos = Todo.all
+    
     self.tableView.insertRowsAtIndexPaths([path], withRowAnimation:UITableViewRowAnimationRight)
     edit_todo(todo) unless RUBYMOTION_ENV == 'test' 
   end

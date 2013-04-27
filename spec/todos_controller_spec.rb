@@ -6,7 +6,8 @@ describe "Todos Controller" do
     @todo = Todo.create :name => 'Buy Milk',
                         :description => 'Get some 1% to rid yourself of the muffin top',
                         :due_date => '2013-03-31'
-    @table = controller.tableView #instance_variable_get("@table")
+    @table = controller.tableView
+    @todos = controller.instance_variable_get('@todos')
   end
   
   it 'should exist' do
@@ -27,4 +28,12 @@ describe "Todos Controller" do
     last_cell = @table.visibleCells.last
     last_cell.textLabel.text.should == 'New Todo'
   end
+  
+  it 'should be able to delete ' do
+    flick 'Buy Milk', :from => :left, :to => :right, :duration => 1
+    tap 'Delete'
+    todo = Todo.where(:name).eq('Buy Milk').first
+    todo.should.be.nil
+  end
+  
 end
