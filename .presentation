@@ -93,3 +93,18 @@ slides:
 - slide:
     commit: 07555e4efbcb1a410958cedb800bab8485cc0d3b
     message: Update table view when the todo changes using notifications
+- slide:
+    commit: 82358b93b65175e65ee267dea6d20bffa0b7c4df
+    message: Implemented Add New (+) Todo from Navbar
+- slide:
+    commit: 5fa15460acb6bf0148157cefb6228e9146f30188
+    message: ! 'Refactor: Replaced UIViewController with UITableViewController'
+- slide:
+    commit: 6f766a994e13b5d66dfa9e9d119de7569f4d9e0a
+    message: Added detail button to table cells
+- slide:
+    commit: 8813d02233b13cf961bfe6fd92a13ad57fd823c0
+    message: Enabled detail button tap
+- slide:
+    commit: 8a5116aafa9f17f957591747e1f37baad727e1d6
+    message: Implemented Slide to Delete
