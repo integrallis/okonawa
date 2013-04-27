@@ -22,6 +22,7 @@ class TodosController < UITableViewController
   def tableView(tableView, cellForRowAtIndexPath: indexPath)
     cell = UITableViewCell.alloc.initWithStyle(UITableViewCellStyleDefault, reuseIdentifier:nil)
     cell.textLabel.text = @todos[indexPath.row].name
+    cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton
     cell
   end
   
