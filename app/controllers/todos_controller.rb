@@ -1,14 +1,8 @@
-class TodosController < UIViewController
+class TodosController < UITableViewController
   
   def viewDidLoad
     super
     self.title = "My ToDos"
-    @table = UITableView.alloc.initWithFrame(self.view.bounds)
-    @table.autoresizingMask = UIViewAutoresizingFlexibleHeight
-    self.view.addSubview(@table)
-
-    @table.dataSource = self
-    @table.delegate = self
     
     @todos = Todo.all
     
@@ -46,7 +40,7 @@ class TodosController < UIViewController
       when 'add'
         add_todo_row(todo)
       when 'update'
-        @table.reloadRowsAtIndexPaths([path], withRowAnimation:UITableViewRowAnimationAutomatic)
+        self.tableView.reloadRowsAtIndexPaths([path], withRowAnimation:UITableViewRowAnimationAutomatic)
       when 'delete'  
     end
   end
@@ -62,7 +56,7 @@ class TodosController < UIViewController
     row = todo.id - 1
     path = NSIndexPath.indexPathForRow(row, inSection:0)
     @todos = Todo.all
-    @table.insertRowsAtIndexPaths([path], withRowAnimation:UITableViewRowAnimationRight)
+    self.tableView.insertRowsAtIndexPaths([path], withRowAnimation:UITableViewRowAnimationRight)
     edit_todo(todo) unless RUBYMOTION_ENV == 'test' 
   end
   

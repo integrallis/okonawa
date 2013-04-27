@@ -6,7 +6,7 @@ describe "Todos Controller" do
     @todo = Todo.create :name => 'Buy Milk',
                         :description => 'Get some 1% to rid yourself of the muffin top',
                         :due_date => '2013-03-31'
-    @table = controller.instance_variable_get("@table")
+    @table = controller.tableView #instance_variable_get("@table")
   end
   
   it 'should exist' do

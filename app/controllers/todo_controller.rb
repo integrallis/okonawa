@@ -22,7 +22,7 @@ class TodoController < Formotion::FormController
     app = UIApplication.sharedApplication
     delegate = app.delegate
     controller = delegate.instance_variable_get("@todos_controller")
-    view = controller.instance_variable_get("@table")
+    view = controller.tableView
     view.setNeedsDisplay
     
     self.navigationController.popToRootViewControllerAnimated(true) unless RUBYMOTION_ENV == 'test'
