@@ -3,7 +3,7 @@ class TodoController < Formotion::FormController
   attr_accessor :form
   
   def initialize(todo)
-    self.form = Formotion::Form.new(todo.to_formotion('Edit your ToDo'))
+    self.form = Formotion::Form.new(todo.to_formotion("TODO: #{todo.name}"))
     self.initWithForm(self.form)
     self.todo = todo
   end

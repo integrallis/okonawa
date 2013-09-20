@@ -7,7 +7,10 @@ class TodosController < UITableViewController
     load_todos
     
     add_todo_button = UIBarButtonItem.alloc.initWithBarButtonSystemItem(UIBarButtonSystemItemAdd, target:self, action:'add_todo')
-    self.navigationItem.rightBarButtonItem = add_todo_button                                                                                  
+    self.navigationItem.rightBarButtonItem = add_todo_button   
+    
+    # self.view.styleClass = 'full-view'
+    # self.tableView.styleId = 'myTable'                                                                               
     
     NSNotificationCenter.defaultCenter.addObserver(self, selector: 'todo_changed:',
                                                          name: 'MotionModelDataDidChangeNotification',
