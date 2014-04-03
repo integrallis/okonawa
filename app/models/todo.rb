@@ -1,17 +1,21 @@
 class Todo
-  include MotionModel::Model
-  include MotionModel::ArrayModelAdapter
-  include MotionModel::Validatable
-  include MotionModel::Formotion
+  include ParseModel::Model
 
-  columns :name     => :string,
-          :details  => :string,
-          :due_date => {:type => :date, :formotion => {:picker_type => :date_time}},
-          :done     => {:type => :boolean, :default => false, :formotion => {:type => :switch}}
-          
-  validates :name, :presence => true
-  
+  fields :name, :details, :due_date, :done
+
   def overdue?
     NSDate.new > self.due_date && !done
+  end
+
+  def new?
+    objectId.nil?
+  end
+
+  def valid?
+    !name.nil?
+  end
+
+  def to_s
+    "objectId: #{objectId}, name: #{name}, details: #{details}, due_date: #{due_date}, done: #{done}"
   end
 end

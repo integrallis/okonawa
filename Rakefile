@@ -2,12 +2,12 @@
 $:.unshift("/Library/RubyMotion/lib")
 
 require 'motion/project/template/ios'
-require 'motion_model'
 require 'guard/motion'
 require 'formotion'
 require 'sugarcube-repl'
 require 'bundler'
 require 'yaml'
+require 'ParseModel'
 Bundler.require
 
 Motion::Project::App.setup do |app|

@@ -4,21 +4,18 @@ class TodosController < UITableViewController
     super
     self.title = "Okonawa"
 
-    load_todos
+    @todos = []
 
     add_todo_button = UIBarButtonItem.alloc.initWithBarButtonSystemItem(UIBarButtonSystemItemAdd, target:self, action:'add_todo')
     log_out_button = UIBarButtonItem.alloc.initWithTitle("Logout", style: UIBarButtonItemStyleBordered, target:self, action:'logout')
 
     self.navigationItem.rightBarButtonItem = add_todo_button
     self.navigationItem.leftBarButtonItem = log_out_button
-
-    NSNotificationCenter.defaultCenter.addObserver(self, selector: 'todo_changed:',
-                                                         name: 'MotionModelDataDidChangeNotification',
-                                                         object: nil) unless RUBYMOTION_ENV == 'test'
   end
 
   def viewDidAppear(animated)
     display_login unless (PFUser.currentUser || RUBYMOTION_ENV == 'test')
+    load_todos if PFUser.currentUser
   end
 
   #
@@ -32,16 +29,16 @@ class TodosController < UITableViewController
   def tableView(tableView, cellForRowAtIndexPath: indexPath)
     cell = UITableViewCell.alloc.initWithStyle(UITableViewCellStyleDefault, reuseIdentifier:nil)
     cell.textLabel.text = @todos[indexPath.row].name
-    cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator
     cell
   end
 
   def tableView(tableView, accessoryButtonTappedForRowWithIndexPath:indexPath)
-    select_row(tableView, indexPath)
+    select_row(tableView, indexPath) unless RUBYMOTION_ENV == 'test'
   end
 
   def tableView(tableView, didSelectRowAtIndexPath:indexPath)
-    select_row(tableView, indexPath)
+    select_row(tableView, indexPath) unless RUBYMOTION_ENV == 'test'
   end
 
   def tableView(tableView, editingStyleForRowAtIndexPath:indexPath)
@@ -50,53 +47,48 @@ class TodosController < UITableViewController
 
   def tableView(tableView, commitEditingStyle:editingStyle, forRowAtIndexPath:indexPath)
     if editingStyle == UITableViewCellEditingStyleDelete
-      load_todos
-      @todos[indexPath.row].destroy
+      todo = @todos[indexPath.row]
+      todo.deleteInBackground
+      @todos.delete(todo)
+      refresh_display
     end
   end
 
+  def refresh_display
+    self.tableView.reloadData
+  end
+
   #
-  #
+  # Todo's Management
   #
 
   def load_todos
-    @todos = Todo.all
-  end
+    Dispatch::Queue.concurrent.async do
+      query = Todo.query
+      @todos = query.find
 
-  def todo_changed(notification)
-    todo = notification.object
-
-    if notification.userInfo[:action] != 'delete'
-      row = @todos.index(todo) - 1
-      path = NSIndexPath.indexPathForRow(row, inSection:0)
-    end
-
-    load_todos
-
-    case notification.userInfo[:action]
-      when 'add'
-        add_todo_row(todo)
-      when 'update'
-        self.tableView.reloadRowsAtIndexPaths([path], withRowAnimation:UITableViewRowAnimationAutomatic)
-      when 'delete'
-        self.tableView.reloadData
+      Dispatch::Queue.main.sync { refresh_display }
     end
   end
 
   def add_todo
-    todo = Todo.create :name => "New Todo",
-                :description => "",
-                :due_date => NSDate.new
-    add_todo_row(todo) if RUBYMOTION_ENV == 'test'
+    todo = Todo.new
+    todo.name = 'New Todo'
+    todo.details = ''
+    todo.due_date = NSDate.new.to_f
+    todo.done = false
+
+    edit_todo(todo) unless RUBYMOTION_ENV == 'test'
+
+    todo
   end
 
   def add_todo_row(todo)
-    load_todos if RUBYMOTION_ENV == 'test'
+    @todos << todo
     row = @todos.size - 1
     path = NSIndexPath.indexPathForRow(row, inSection:0)
 
     self.tableView.insertRowsAtIndexPaths([path], withRowAnimation:UITableViewRowAnimationRight)
-    edit_todo(todo) unless RUBYMOTION_ENV == 'test'
   end
 
   def select_row(tableView, indexPath)
@@ -110,12 +102,19 @@ class TodosController < UITableViewController
     self.navigationController.pushViewController(todo_controller, animated: true)
   end
 
+  def refresh_row_for(todo)
+    row = @todos.index(todo)
+    path = NSIndexPath.indexPathForRow(row, inSection:0)
+    self.tableView.reloadRowsAtIndexPaths([path], withRowAnimation:UITableViewRowAnimationAutomatic)
+  end
+
   #
-  #
+  # Authentication
   #
 
   def logInViewController(logIn, didLogInUser:user)
     @login.dismissModalViewControllerAnimated(true)
+    load_todos
   end
 
   def display_login
@@ -130,6 +129,8 @@ class TodosController < UITableViewController
 
   def logout
     PFUser.logOut
+    @todos = []
+    refresh_display
     display_login
   end
 
