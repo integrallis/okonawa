@@ -1,7 +1,7 @@
 class Todo
   include ParseModel::Model
 
-  fields :name, :details, :due_date, :done
+  fields :name, :details, :due_date, :done, :owner
 
   def overdue?
     NSDate.new > self.due_date && !done
@@ -16,6 +16,6 @@ class Todo
   end
 
   def to_s
-    "objectId: #{objectId}, name: #{name}, details: #{details}, due_date: #{due_date}, done: #{done}"
+    "objectId: #{objectId}, name: #{name}, details: #{details}, due_date: #{due_date}, done: #{done}, owner: #{owner}"
   end
 end

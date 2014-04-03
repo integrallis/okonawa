@@ -14,6 +14,9 @@ Motion::Project::App.setup do |app|
   # Use `rake config' to see complete project settings.
   app.name = 'Okonawa'
 
+  app.sdk_version = '7.1'
+  app.deployment_target = '7.1'
+
   # Set motion-my_env file
   app.my_env.file = './config/environment.yaml'
 

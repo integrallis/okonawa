@@ -15,7 +15,7 @@ class TodosController < UITableViewController
 
   def viewDidAppear(animated)
     display_login unless (PFUser.currentUser || RUBYMOTION_ENV == 'test')
-    load_todos if PFUser.currentUser
+    load_todos if User.current_user
   end
 
   #
@@ -65,6 +65,7 @@ class TodosController < UITableViewController
   def load_todos
     Dispatch::Queue.concurrent.async do
       query = Todo.query
+      query.whereKey('owner', equalTo: User.current_user.username)
       @todos = query.find
 
       Dispatch::Queue.main.sync { refresh_display }
@@ -77,6 +78,7 @@ class TodosController < UITableViewController
     todo.details = ''
     todo.due_date = NSDate.new.to_f
     todo.done = false
+    todo.owner = RUBYMOTION_ENV != 'test' ? User.current_user.username : 'testuser'
 
     edit_todo(todo) unless RUBYMOTION_ENV == 'test'
 
