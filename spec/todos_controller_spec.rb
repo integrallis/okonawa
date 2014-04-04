@@ -2,12 +2,19 @@ describe "Todos Controller" do
   tests TodosController
 
   before do
-    Todo.delete_all
-    @todo = Todo.create :name => 'Buy Milk',
-                        :description => 'Get some 1% to rid yourself of the muffin top',
-                        :due_date => '2013-03-31'
+    @now = NSDate.new.to_f
+
+    @todo = Todo.new
+    @todo.name = 'Buy Milk'
+    @todo.details = 'Get some 1% to rid yourself of the muffin top'
+    @todo.due_date = @now
+    @todo.done = false
+
     @table = controller.tableView
     @todos = controller.instance_variable_get('@todos')
+    @todos << @todo
+
+    controller.refresh_display
   end
 
   it 'should exist' do
@@ -24,16 +31,30 @@ describe "Todos Controller" do
   end
 
   it 'creates a new row for a new todo' do
-    controller.add_todo
+    todo = controller.add_todo
+    controller.add_todo_row(todo)
     last_cell = @table.visibleCells.last
     last_cell.textLabel.text.should == 'New Todo'
   end
 
   it 'should be able to swipe to delete' do
-    flick 'New Todo', :from => :right, :to => :left, :duration => 1.0
+    @another_todo = Todo.new
+    @another_todo.name = 'Buy Beer and Bacon'
+    @another_todo.details = 'Undo the first todo'
+    @another_todo.due_date = @now
+    @another_todo.done = false
+
+    @todos << @another_todo
+
+    controller.refresh_display
+
+    flick 'Buy Beer and Bacon', :from => :right, :to => :left, :duration => 1.0
     tap 'Delete'
-    todo = Todo.where(:name).eq('New Todo').first
-    todo.should.be.nil
+
+    controller.refresh_display
+
+    cells = @table.visibleCells.size
+    cells.should == 2 # this bloody test is not working!!!
   end
 
 end

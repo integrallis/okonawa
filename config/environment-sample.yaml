@@ -1,0 +1,4 @@
+facebook_app_id: 'facebook_app_id_quoted'
+facebook_app_url_types: fb+facebook_app_id
+parse_app_id: parse_app_id
+parse_client_key: parse_client_key
