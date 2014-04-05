@@ -14,6 +14,7 @@ nbproject
 .eprj
 .sass-cache
 .idea
+.presentation
 config/environment.yaml
 vendor/Parse.framework/build-iPhoneOS/
 vendor/Parse.framework/build-iPhoneSimulator/
