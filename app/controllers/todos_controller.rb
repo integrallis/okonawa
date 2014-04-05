@@ -14,7 +14,7 @@ class TodosController < UITableViewController
   end
 
   def viewDidAppear(animated)
-    display_login unless (PFUser.currentUser || RUBYMOTION_ENV == 'test')
+    display_login unless (User.current_user || RUBYMOTION_ENV == 'test')
     load_todos if User.current_user
   end
 
