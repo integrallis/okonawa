@@ -24,8 +24,6 @@ Motion::Project::App.setup do |app|
   vars_yaml = File.read './config/environment.yaml'
   vars_data = YAML.load vars_yaml
 
-  app.libs << '/usr/lib/libz.1.1.3.dylib'
-  app.libs << '/usr/lib/libsqlite3.dylib'
   app.frameworks += [
     'AudioToolbox',
     'CFNetwork',
@@ -46,9 +44,7 @@ Motion::Project::App.setup do |app|
   ]
 
   app.vendor_project('vendor/Parse.framework', :static,
-    :products => ['Parse'],
-    :force_load => true,
-    :headers_dir => 'Headers'
+    :products => ['Parse']
   )
 
   app.pods do
