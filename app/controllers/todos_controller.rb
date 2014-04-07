@@ -120,7 +120,7 @@ class TodosController < UITableViewController
   end
 
   def display_login
-    @login = PFLogInViewController.alloc.init
+    @login = PFLogInViewController.new
     @login.fields = PFLogInFieldsUsernameAndPassword | PFLogInFieldsLogInButton |
                     PFLogInFieldsSignUpButton | PFLogInFieldsPasswordForgotten |
                     PFLogInFieldsFacebook
