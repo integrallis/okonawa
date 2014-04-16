@@ -8,6 +8,7 @@ require 'sugarcube-repl'
 require 'bundler'
 require 'yaml'
 require 'ParseModel'
+require 'motion-pixatefreestyle'
 Bundler.require
 
 Motion::Project::App.setup do |app|
@@ -50,8 +51,11 @@ Motion::Project::App.setup do |app|
   app.pods do
     pod 'Facebook-iOS-SDK', '~> 3.13.0'
     pod 'SVPullToRefresh', '~> 0.4.1'
+    pod 'PixateFreestyle', '~> 2.1'
   end
 
   app.info_plist['FacebookAppID'] =  vars_data['facebook_app_id']
   app.info_plist['URL types'] = { 'URL Schemes' => vars_data['facebook_app_url_types'] } # note the "fb" prefix
+
+  app.pixatefreestyle.framework = 'vendor/Pods/PixateFreestyle/PixateFreestyle.framework'
 end

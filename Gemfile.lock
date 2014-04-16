@@ -61,6 +61,8 @@ GEM
     motion-cocoapods (1.4.0)
       cocoapods (>= 0.26.2)
     motion-my_env (0.2)
+    motion-pixatefreestyle (2.1)
+      sass
     motion-require (0.0.7)
     multi_json (1.9.2)
     nap (0.6.0)
@@ -74,6 +76,7 @@ GEM
     rb-fsevent (0.9.4)
     rb-inotify (0.9.3)
       ffi (>= 0.5.0)
+    sass (3.3.5)
     slop (3.5.0)
     sugarcube (1.5.5)
     thor (0.19.1)
@@ -91,5 +94,6 @@ DEPENDENCIES
   guard-motion
   motion-cocoapods
   motion-my_env
+  motion-pixatefreestyle
   rb-fsevent
   sugarcube
