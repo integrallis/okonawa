@@ -18,6 +18,8 @@ nbproject
 config/environment.yaml
 vendor/Parse.framework/build-iPhoneOS/
 vendor/Parse.framework/build-iPhoneSimulator/
+vendor/Pods/
 vendor/Pods/.build/
 vendor/Pods/build-iPhoneOS/
 vendor/Pods/build-iPhoneSimulator/
+vendor/Podfile.lock
