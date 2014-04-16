@@ -11,6 +11,13 @@ class TodosController < UITableViewController
 
     self.navigationItem.rightBarButtonItem = add_todo_button
     self.navigationItem.leftBarButtonItem = log_out_button
+    self.navigationController.navigationBar.translucent = false unless RUBYMOTION_ENV == 'test'
+
+    self.tableView.addPullToRefreshWithActionHandler(
+      Proc.new do
+        load_todos(true)
+      end
+    )
   end
 
   def viewDidAppear(animated)
@@ -62,13 +69,16 @@ class TodosController < UITableViewController
   # Todo's Management
   #
 
-  def load_todos
+  def load_todos(stop_animation = false)
     Dispatch::Queue.concurrent.async do
       query = Todo.query
       query.whereKey('owner', equalTo: User.current_user.username)
       @todos = query.find
 
-      Dispatch::Queue.main.sync { refresh_display }
+      Dispatch::Queue.main.sync do
+        refresh_display
+        tableView.pullToRefreshView.stopAnimating if stop_animation
+      end
     end
   end
 

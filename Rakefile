@@ -49,6 +49,7 @@ Motion::Project::App.setup do |app|
 
   app.pods do
     pod 'Facebook-iOS-SDK', '~> 3.13.0'
+    pod 'SVPullToRefresh', '~> 0.4.1'
   end
 
   app.info_plist['FacebookAppID'] =  vars_data['facebook_app_id']
