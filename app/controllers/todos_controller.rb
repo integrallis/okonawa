@@ -37,6 +37,7 @@ class TodosController < UITableViewController
     cell = UITableViewCell.alloc.initWithStyle(UITableViewCellStyleDefault, reuseIdentifier:nil)
     cell.textLabel.text = @todos[indexPath.row].name
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator
+    cell.styleClass = 'table-cell'
     cell
   end
 
@@ -136,6 +137,11 @@ class TodosController < UITableViewController
                     PFLogInFieldsFacebook
     @login.delegate = self
     @login.signUpController.delegate = self
+
+    @signup = @login.signUpController
+
+    styles_for_parse
+
     self.presentModalViewController(@login, animated:true)
   end
 
@@ -144,6 +150,67 @@ class TodosController < UITableViewController
     @todos = []
     refresh_display
     display_login
+  end
+
+  private
+
+  def styles_for_parse
+    @login.logInView.logo = UIImageView.alloc.initWithImage(UIImage.imageNamed('okonawa.png'))
+    @login.logInView.styleId = 'login-view'
+    @login.logInView.signUpButton.styleClass = 'button'
+    @login.logInView.logInButton.styleClass = 'button'
+    @login.logInView.facebookButton.styleClass = 'button'
+    @login.logInView.signUpButton.styleId = 'login-signup'
+    @login.logInView.logInButton.styleId = 'login-login'
+    @login.logInView.facebookButton.styleId = 'login-facebook'
+
+    @login.logInView.passwordForgottenButton.styleClass = 'button'
+    @login.logInView.passwordForgottenButton.styleId = 'login-forgot'
+    @login.logInView.passwordForgottenButton.setTitle('Forgot?', forState:UIControlStateNormal)
+    @login.logInView.passwordForgottenButton.titleLabel.transform = CGAffineTransformMakeRotation( - Math::PI / 2 )
+    @login.logInView.passwordForgottenButton.titleLabel.adjustsFontSizeToFitWidth = true
+    # @login.logInView.passwordForgottenButton.titleLabel.minimumScaleFactor = 0.3
+
+    @login.logInView.usernameField.styleClass = 'parse-field'
+    @login.logInView.usernameField.layer.shadowColor = nil
+    @login.logInView.usernameField.layer.shadowOpacity = 0.0
+    @login.logInView.usernameField.layer.backgroundColor = UIColor.clearColor
+    @login.logInView.usernameField.textColor = UIColor.blackColor
+
+    @login.logInView.passwordField.styleClass = 'parse-field'
+    @login.logInView.passwordField.layer.shadowColor = nil
+    @login.logInView.passwordField.layer.shadowOpacity = 0.0
+    @login.logInView.passwordField.layer.backgroundColor = UIColor.clearColor
+    @login.logInView.passwordField.textColor = UIColor.blackColor
+
+    @login.logInView.externalLogInLabel.styleClass = 'parse-label'
+    @login.logInView.externalLogInLabel.shadowColor = nil
+    @login.logInView.signUpLabel.styleClass = 'parse-label'
+    @login.logInView.signUpLabel.shadowColor = nil
+
+    @signup.signUpView.logo = UIImageView.alloc.initWithImage(UIImage.imageNamed('okonawa.png'))
+    @signup.signUpView.styleId = 'signup-view'
+
+    @signup.signUpView.usernameField.styleClass = 'parse-field'
+    @signup.signUpView.usernameField.layer.shadowColor = nil
+    @signup.signUpView.usernameField.layer.shadowOpacity = 0.0
+    @signup.signUpView.usernameField.layer.backgroundColor = UIColor.clearColor
+    @signup.signUpView.usernameField.textColor = UIColor.blackColor
+
+    @signup.signUpView.passwordField.styleClass = 'parse-field'
+    @signup.signUpView.passwordField.layer.shadowColor = nil
+    @signup.signUpView.passwordField.layer.shadowOpacity = 0.0
+    @signup.signUpView.passwordField.layer.backgroundColor = UIColor.clearColor
+    @signup.signUpView.passwordField.textColor = UIColor.blackColor
+
+    @signup.signUpView.emailField.styleClass = 'parse-field'
+    @signup.signUpView.emailField.layer.shadowColor = nil
+    @signup.signUpView.emailField.layer.shadowOpacity = 0.0
+    @signup.signUpView.emailField.layer.backgroundColor = UIColor.clearColor
+    @signup.signUpView.emailField.textColor = UIColor.blackColor
+
+    @signup.signUpView.signUpButton.styleClass = 'button'
+    @signup.signUpView.signUpButton.styleId = 'signup-signup'
   end
 
 end

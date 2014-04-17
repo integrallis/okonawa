@@ -1,0 +1,31 @@
+#login-view, #signup-view {
+  background-color: $white-smoke;
+}
+
+#login-signup { background-color: $blue-semidark; }
+#login-forgot { background-color: $gray-dark; }
+#login-facebook { background-color: $blue-semidark; }
+
+label, .parse-label {
+  font-family: $input-text-font;
+  font-size: $input-text-size;
+}
+
+.parse-field {
+  -ios-border-style: rounded-rect;
+  font-family: $input-text-font;
+  font-size: $input-text-size;
+  font-weight: light;
+  padding: 2pt 5pt;
+  padding-bottom: 2pt;
+  text-shadow: none;
+}
+
+switch {
+    color: $switch-on-bg;
+    -ios-tint-color: $switch-off-bg;
+}
+
+switch thumb {
+    color: $switch-thumb-bg;
+}
